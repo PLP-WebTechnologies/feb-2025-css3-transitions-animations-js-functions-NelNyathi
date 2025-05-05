@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fun Animation with Local Storage</title>
+    <style>
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background: linear-gradient(45deg, #ff80c0, #d8a7f7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            color: #fff;
+        }
+
+        .container {
+            text-align: center;
+            border: 2px solid #fff;
+            padding: 30px;
+            border-radius: 10px;
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .animate {
+            animation: bounceUp 1s ease-in-out;
+        }
+
+        @keyframes bounceUp {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.3); }
+            100% { transform: scale(1); }
+        }
+
+        .myButton {
+            padding: 20px 40px;
+            font-size: 22px;
+            cursor: pointer;
+            background-color: #ff5c8d;
+            color: #fff;
+            border: none;
+            border-radius: 25px;
+            transition: background-color 0.3s ease;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .myButton:hover {
+            background-color: #ff4785;
+        }
+
+        .myButton:active {
+            background-color: #ff3377;
+        }
+
+        #message {
+            margin-top: 20px;
+            font-size: 20px;
+            font-weight: bold;
+            color: #f1c6f2;
+        }
+
+        .welcome-back {
+            color: #fdb6e8;
+            font-style: italic;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <button class="myButton" id="animateBtn">✨ Click me! ✨</button>
+        <div id="message"></div>
+    </div>
+
+    <script>
+        function storePreference(key, value) {
+            localStorage.setItem(key, value);
+        }
+
+        function getPreference(key) {
+            return localStorage.getItem(key);
+        }
+
+        const animateBtn = document.getElementById('animateBtn');
+        const message = document.getElementById('message');
+
+        animateBtn.addEventListener('click', () => {
+            animateBtn.classList.add('animate');
+            setTimeout(() => {
+                message.textContent = "Yay! You've made the magic happen! 🎉✨";
+            }, 1000);
+
+            storePreference('buttonClicked', 'true');
+        });
+
+        if (getPreference('buttonClicked') === 'true') {
+            message.innerHTML = "Welcome back, gorgeous! 💖 You've clicked this button before! 💅";
+        }
+    </script>
+    
+</body>
+</html>
